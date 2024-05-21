@@ -1,0 +1,14 @@
+body {
+    font-family: Arial, sans-serif;
+}
+header {
+    background: #f8f9fa;
+    padding: 10px 0;
+}
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+}
+main {
+    padding: 20px;
+}

@@ -1,0 +1,70 @@
+<!-- templates/property_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Properties</h2>
+<form method="get">
+    <input type="text" name="city" placeholder="City">
+    <input type="text" name="state" placeholder="State">
+    <button type="submit">Filter</button>
+</form>
+<ul>
+    {% for property in page_obj %}
+        <li>
+            <h3>{{ property.title }}</h3>
+            <p>{{ property.description }}</p>
+            <p>Price: ${{ property.price }}</p>
+            <button class="like-button" data-id="{{ property.id }}">
+                Like ({{ property.likes.count }})
+            </button>
+            {% if user.is_authenticated %}
+                <a href="{% url 'property_detail' property.pk %}">I'm Interested</a>
+            {% else %}
+                <a href="{% url 'login' %}?next={% url 'property_detail' property.pk %}">I'm Interested</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+
+    </span>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const likeButtons = document.querySelectorAll('.like-button');
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const propertyId = this.dataset.id;
+                fetch(`/like-property/${propertyId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.textContent = `Like (${data.likes_count})`;
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+<!-- templates/my_properties.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>My Properties</h2>
+<ul>
+    {% for property in properties %}
+        <li>
+            <h3>{{ property.title }}</h3>
+            <p>{{ property.description }}</p>
+            <p>Price: ${{ property.price }}</p>
+            <a href="{% url 'property_update' property.pk %}">Edit</a>
+            <a href="{% url 'property_delete' property.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

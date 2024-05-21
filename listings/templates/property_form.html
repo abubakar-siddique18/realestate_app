@@ -1,0 +1,11 @@
+<!-- templates/property_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ form.instance.pk|yesno:"Update Property,Post Property" }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{{ form.instance.pk|yesno:"Update,Post" }}</button>
+</form>
+{% endblock %}

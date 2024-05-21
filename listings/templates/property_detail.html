@@ -1,0 +1,28 @@
+<style>
+    .button {
+  background-color: #6204aa;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  cursor: pointer;
+}
+
+</style>
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ property.title }}</h2>
+<p>{{ property.description }}</p>
+<p>Price: ${{ property.price }}</p>
+<p>Contact: {{ property.seller.email }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <a href="/my_properties/" class="button">I'm Interested</a>
+</form>
+{% endblock %}

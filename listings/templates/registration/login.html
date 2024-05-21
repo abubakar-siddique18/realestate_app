@@ -1,0 +1,70 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+<form class="col-6 mx-auto card p-3 shadow-lg" method="post"  enctype="multipart/form-data">
+
+    
+    <style>
+        input[type = text], select {
+          width: 20%;
+          padding: 8px 8px;
+          margin: 6px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 2px;
+          box-sizing: border-box;
+        }
+
+        input[type = password] {
+          width: 20%;
+          padding: 8px 8px;
+          margin: 6px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 2px;
+          box-sizing: border-box;
+        }
+        input[type=submit]{
+        width: 5%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 8px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+}
+
+input[type=submit]:hover {
+background-color: #45a049;
+}
+
+div {
+border-radius: 5px;
+background-color: #f2f2f2;
+padding: 5px;
+
+}
+.button {
+background-color: #04AA6D;
+border: none;
+color: white;
+padding: 8px 8px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 2px 2px;
+cursor: pointer;
+}
+     </style>
+<h2>Login</h2>
+{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+<p>Don't have an account? <a href="{% url 'register' %}">Register here</a>.</p>
+{% endblock %}
